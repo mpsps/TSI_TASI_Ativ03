@@ -1,19 +1,21 @@
 from langchain_community.embeddings import OllamaEmbeddings
 
-# texto que será usado para criação de embeddings
-texto = "A UML, Linguagem Unificada de Modelagem, é uma linguagem gráfica para visualização, especificação, construção e documentação de artefatos de sistemas complexos de software."
+# criação de embeddings
+embeddingsText = "Estoicismo é uma escola e doutrina filosófica surgida na Grécia Antiga, que preza a fidelidade ao nconhecimento e o foco em tudo aquilo que pode ser controlado pela própria pessoa. Despreza todos os tipos de sentimentos externos, como a paixão e os desejos extremos."
 
-# escolhendo o modelo de embeddings (que ira gera um associado a cada palavra)
+# modelo de embeddings do Ollama
 embeddings = OllamaEmbeddings(model="mxbai-embed-large")
 
-# essa parte do codigo ira gera os embeddings de cada palavras, que definirar o contexto atraves de um numero
-texto_embeddings = embeddings.embed_query(texto)
+# geração do embeddings
+texto_embeddings = embeddings.embed_query(embeddingsText)
 
-# Esta parte serve para vê o tamanho
+# tamanho do embeddings
 tamanho_vetor = len(texto_embeddings)
-print(f"Tamanho dos embeddings: {tamanho_vetor}")
+print(f"------------ Tamanho dos embeddings: {tamanho_vetor} ------------ ")
 
-# por ultimo ira exibi os 5 primeiros embeddings que foram gerados por veio do texto
-print("\n 5 primeiros embeddings são:")
-for i in texto_embeddings[:5]:
+# exibição dos embeddings gerados
+print("------------ Os embeddings gerados: -----------------")
+for i in texto_embeddings[:10]:
     print(i)
+    
+print("-----------------------------------------------------")
