@@ -1,30 +1,19 @@
-import numpy as np
 from langchain_community.embeddings import OllamaEmbeddings
 
-# Define os documentos
-documents = [ "Variáveis em Python e os tipos de dados básicos como int, float e string.", 
-             "Estruturas de controle em Python: if, else, e elif para tomada de decisões.", 
-             "Loops em Python, como for e while, para repetição de tarefas.", 
-             "Funções em Python: como definir e chamar funções usando a palavra-chave def."]
+# texto que será usado para criação de embeddings
+texto = "A UML, Linguagem Unificada de Modelagem, é uma linguagem gráfica para visualização, especificação, construção e documentação de artefatos de sistemas complexos de software."
 
-# Define o modelo de embeddings
+# escolhendo o modelo de embeddings (que ira gera um associado a cada palavra)
 embeddings = OllamaEmbeddings(model="mxbai-embed-large")
-document_embeddings = embeddings.embed_documents(documents)
 
-# Mostra o tamanho dos embeddings
-embedding_size = len(document_embeddings[0])
-print(f"Tamanho dos embeddings: {embedding_size}")
+# essa parte do codigo ira gera os embeddings de cada palavras, que definirar o contexto atraves de um numero
+texto_embeddings = embeddings.embed_query(texto)
 
-# Realiza uma busca de similaridade para uma consulta dada
-query = "Como criar funções em Python?"
-query_embedding = embeddings.embed_query(query)
+# Esta parte serve para vê o tamanho
+tamanho_vetor = len(texto_embeddings)
+print(f"Tamanho dos embeddings: {tamanho_vetor}")
 
-# Calcula os scores de similaridade
-similarity_scores = cosine_similarity([query_embedding], document_embeddings)[0]
-
-# Encontra o documento mais similar
-most_similar_index = np.argmax(similarity_scores)
-most_similar_document = documents[most_similar_index]
-
-print(f"Documento mais similar à consulta '{query}':")
-print(most_similar_document)
+# por ultimo ira exibi os 5 primeiros embeddings que foram gerados por veio do texto
+print("\n 5 primeiros embeddings são:")
+for i in texto_embeddings[:5]:
+    print(i)
