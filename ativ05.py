@@ -4,47 +4,34 @@ from langchain_ollama import OllamaLLM, OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 
-# Carregando o PDF
+# Carregar o PDF
 pdf_path = 'info.pdf'
 loader = PyPDFLoader(pdf_path)
 pages = loader.load_and_split()
 
-# Dividindo o texto em partes menores
+# Dividir o texto em chunks (fragmentos menores)
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=800,    # Tamanho dos chunks
+    chunk_size=700,    # Tamanho dos chunks
     chunk_overlap=50,   # Sobreposição entre os chunks
     length_function=len
 )
 texts = text_splitter.split_documents(pages)
 
-# Verificando o primeiro texto
-# print(texts[0])
-
-# Criando o banco de dados FAISS com embeddings do Ollama
+# Criar embeddings com Ollama
 db = FAISS.from_documents(texts, OllamaEmbeddings(model="mxbai-embed-large"))
 
-# Realizando a busca por similaridade
+# Realizar a busca de similaridade
 query = "O que é hardware?"
 docs = db.similarity_search(query)
 print(docs[0].page_content)
 
-# Buscando os 5 documentos mais relevantes
-# docs = db.similarity_search(query, k=5)
-
-# Imprimindo os 5 documentos mais relevantes
-#for i, doc in enumerate(docs):
-#   print(f"Chunk {i + 1}: {doc.page_content}")
-
-# Criando o modelo LLM do Ollama
+# Carregar o modelo de linguagem para responder a pergunta
 model = OllamaLLM(model="llama3.2-vision:latest")
 
-# Recuperando o retriever com 5 documentos mais relevantes
-# retriever = db.as_retriever(search_kwargs={"k": 5})
+# Configurar o recuperador e a cadeia de Q&A
 retriever = db.as_retriever()
-
-# Criando a cadeia de QA
 qa_chain = RetrievalQA.from_chain_type(llm=model, retriever=retriever, chain_type="stuff")
 
-# Exemplo de uso da cadeia de QA
+# Invocar a resposta
 response = qa_chain.invoke(query)
-print("QA Response:", response)
+print("Resposta da Q&A:", response)
