@@ -1,25 +1,25 @@
-# TSI_TASI_Ativ07
-# Construção de um Sistema de Recuperação de Informações usando VectorDB e RetrievalQA
-Este projeto implementa um sistema de perguntas e respostas (Q&A) utilizando a biblioteca LangChain e o serviço Ollama. O código carrega um documento PDF, divide o conteúdo em fragmentos, gera embeddings semânticos e usa o modelo de linguagem Ollama para responder perguntas baseadas no conteúdo do PDF.
+# Projeto de Transcrição e Resumo Automático de Áudio
 
-## Funcionalidades
-- Funcionalidade
-- Carrega um arquivo PDF e divide seu conteúdo em páginas.
-- Divide o texto em fragmentos menores para facilitar o processamento.
-- Cria embeddings para os fragmentos de texto usando o modelo Ollama.
-- Indexa os embeddings com FAISS, permitindo buscas rápidas e eficientes.
-- Realiza uma busca de similaridade para encontrar os fragmentos mais relevantes para a consulta fornecida.
-- Gera uma resposta com o modelo de linguagem Ollama, com base nos fragmentos recuperados.
-- Exibe a resposta para a consulta.
+Este projeto utiliza uma combinação de bibliotecas para transcrever áudios, resumir o texto transcrito, e gerar uma saída de áudio com o resumo. O processo envolve três etapas principais:
 
-### Pré-requisitos:
-Antes de executar o código, é necessário ter instalado os seguintes requisitos:
+1. **Transcrição de Áudio**: O áudio é transcrito para texto usando o modelo `Whisper` da OpenAI.
+2. **Resumo do Texto**: O texto transcrito é resumido usando o modelo `OllamaLLM` com o modelo `Llama3.2`.
+3. **Geração de Áudio**: O resumo gerado é convertido de volta para áudio utilizando o modelo `Bark`.
 
-- Python 3.x ou superior.
-- Ollama: Plataforma para geração de embeddings e modelos de linguagem.
-- LangChain: Biblioteca que facilita a criação de pipelines de processamento de linguagem natural (PLN).
-- FAISS: Biblioteca para busca eficiente em grandes volumes de dados.
+## Requisitos
 
-### Depedencia:
-```python
-pip install langchain langchain_community faiss-cpu
+- Python 3.x
+- Bibliotecas Python:
+  - whisper
+  - langchain_ollama
+  - bark
+  - IPython
+
+## Instalação
+
+Para instalar as dependências necessárias, siga os passos abaixo:
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu_usuario/seu_repositorio.git
+   cd seu_repositorio
