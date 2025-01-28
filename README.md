@@ -1,4 +1,4 @@
-# TSI_TASI_Ativ05
+# TSI_TASI_Ativ07
 # Construção de um Sistema de Recuperação de Informações usando VectorDB e RetrievalQA
 Este projeto implementa um sistema de perguntas e respostas (Q&A) utilizando a biblioteca LangChain e o serviço Ollama. O código carrega um documento PDF, divide o conteúdo em fragmentos, gera embeddings semânticos e usa o modelo de linguagem Ollama para responder perguntas baseadas no conteúdo do PDF.
 
