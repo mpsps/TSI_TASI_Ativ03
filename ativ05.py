@@ -11,7 +11,7 @@ pages = loader.load_and_split()
 
 # Dividir o texto em chunks (fragmentos menores)
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=700,    # Tamanho dos chunks
+    chunk_size=700,    # Tamanho dos chunks, diminui para não ficar muito grande
     chunk_overlap=50,   # Sobreposição entre os chunks
     length_function=len
 )
